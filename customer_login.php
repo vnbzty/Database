@@ -43,10 +43,11 @@ function test_input($data) {
 	password: <input type="password" name="password">
 	<span class="error">* <?php echo $passwordErr;?></span>
 	<br><br>
-	<input type="submit" name="submit" value="submit">
+	<input type="button" onclick="window.location.href='customer_login_check.php?name=$name'" value="submit">
 </form>
 
 <?php
+/*
 $con = mysql_connect("127.0.0.1", "root", "");
 if(! $con)
 {
@@ -70,6 +71,18 @@ if (! ($row['password'] == $password)) {
 	}
 }
 mysql_close($con);
+*/
+/*
+$con = mysqli_connect("127.0.0.1", "root", "", "mydb");
+$query = "SELECT password FROM CONSUMER WHERE name = '$name'";
+$result = mysqli_query($con, $query);
+$row = mysqli_fetch_array($result);
+echo $row['password'];
+echo "<br>";
+echo $row['id'];
+echo "<br>";
+mysqli_close($con);
+*/
 ?>
     
 </body>
