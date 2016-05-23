@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,14 +51,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		$query = "SELECT password FROM CONSUMER WHERE name = '$name' and password = '$password'";
 		$result = mysqli_query($con, $query);
 		if($info = mysqli_fetch_array($result)){
-		    $_SESSION['username'] = $name;
-		    $_SESSION['userid'] = $info['uid'];
-		    echo $name,' Welcome!Go<a href="my.php">User Centre</a><br />';
-		    echo 'Click <a href="login.php?action=logout">Cancel</a> Login!<br />';
-		    exit;
+			echo "<script language=\"javascript\">";
+			echo "document.location=\"consumer.php\"";
+			echo "</script>";
 		} else {
-
-		    exit('Failed!Click <a href="javascript:history.back(-1);">Back</a> Retry	');
+			echo "<script>alert(\"Login Details Incorrect. Please try again.\");</script>";
 		}
 	}
 }
