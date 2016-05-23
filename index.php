@@ -7,7 +7,7 @@
 
 <body>
 <?php
-$con = mysql_connect("127.0.0.1", "root", "");
+$con = mysql_connect("127.0.0.1", "root", "vnbzty");
 if(! $con )
 {
   die('Could not connect: ' . mysql_error());

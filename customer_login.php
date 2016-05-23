@@ -12,19 +12,40 @@
 // 定义变量并设置为空值
 $nameErr = $genderErr = $passwordErr =  "";
 $name = $password = "";
+$flag = 1;
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+{
+	if (empty($_POST["name"])){
+		$nameErr = "Name is required";
+		$flag = 0;
+	}
+	else{
+		$name = test_input($_POST["name"]);
+	}
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	if (empty($_POST["name"])) {
-		$nameErr = "name is required";
-  } else {
-    $name = test_input($_POST["name"]);
-  }
-    
-  if (empty($_POST["password"])) {
-    $passwordErr = "password is required";
-  } else {
-    $password = test_input($_POST["password"]);
-  }  
+	if (empty($_POST["password"])){
+		$passwordErr = "Password is required";
+		$flag = 0;
+	}
+	else{
+		$password = test_input($_POST["password"]);
+	}
+	if ($flag == 1){
+		$con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+		$name = $_POST['name'];
+		$passowrd = $_POST['password'];
+		$query = "SELECT password FROM CONSUMER WHERE name = '$name' and password = '$password'";
+		$result = mysqli_query($con, $query);
+		if($info = mysqli_fetch_array($result)){
+		    $_SESSION['username'] = $name;
+		    $_SESSION['userid'] = $info['uid'];
+		    echo $name,' Welcome!Go<a href="my.php">User Centre</a><br />';
+		    echo 'Click <a href="login.php?action=logout">Cancel</a> Login!<br />';
+		    exit;
+		} else {
+		    exit('Failed!Click <a href="javascript:history.back(-1);">Back</a> Retry	');
+		}
+	}
 }
 
 function test_input($data) {
@@ -37,13 +58,13 @@ function test_input($data) {
 
 <p><span class="error">* required</span></p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-	name: <input type="text" name="name">
-	<span class="error">* <?php echo $nameErr;?></span>
-	<br><br>
-	password: <input type="password" name="password">
-	<span class="error">* <?php echo $passwordErr;?></span>
-	<br><br>
-	<input type="button" onclick="window.location.href='customer_login_check.php?name=$name'" value="submit">
+   name: <input type="text" name="name">
+   <span class="error">* <?php echo $nameErr;?></span>
+   <br><br>
+   password: <input type="password" name="password">
+   <span class="error">* <?php echo $passwordErr;?></span>
+   <br><br>
+   <input type="submit" name="submit" value="submit">
 </form>
 
 <?php
@@ -84,6 +105,6 @@ echo "<br>";
 mysqli_close($con);
 */
 ?>
-    
+
 </body>
 </html>
