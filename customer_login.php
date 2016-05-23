@@ -1,4 +1,6 @@
-
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,11 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 		$con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
 		$name = $_POST['name'];
 		$passowrd = $_POST['password'];
-		$query = "SELECT password FROM CONSUMER WHERE name = '$name' and password = '$password'";
+		$query = "SELECT * FROM CONSUMER WHERE name = '$name' and password = '$password'";
 		$result = mysqli_query($con, $query);
 		if($info = mysqli_fetch_array($result)){
+			$_SESSION["username"] = $name;
 			echo "<script language=\"javascript\">";
-			echo "document.location=\"consumer.php\"";
+			echo "document.location=\"customer.php\"";
 			echo "</script>";
 		} else {
 			echo "<script>alert(\"Login Details Incorrect. Please try again.\");</script>";
