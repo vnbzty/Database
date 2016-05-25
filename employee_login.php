@@ -37,7 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['userid'] = $row['id'];
       echo 'Hi, ',$name,'.<br />', 'Welcome!<br />';
 			echo 'Your employee id: ', $row['id'], '<br />';
-			echo 'Your gender: ', $row['gender'], '<br />';
+			echo 'Your gender: ';
+			if ($row['gender'] == 'w') {
+				echo 'female';
+			} else {
+				echo 'male';
+			}
+			echo '<br />';
 			echo 'Your level: ', $row['level'], '<br />';
 			echo 'Your ID card number: ', $row['id_card'], '<br />';
 			echo 'Your department id: ', $row['DEPARTMENT_id'], '<br />';

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Log in</title>
+<title>Employee register</title>
 <style>
-.error {color: #FF0000;}
+	.error {color: #FF0000;}
 </style>
 </head>
 
@@ -16,12 +16,12 @@ $flag = 1;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["name"])) {
 		$nameErr = "name is required";
-        $flag = 0;
+    $flag = 0;
   } else {
     $name = test_input($_POST["name"]);
     if (!preg_match("/^[a-zA-Z1-9_]*$/",$name)) {
-        $nameErr = "number, character and _ only";
-        $flag = 0;
+			$nameErr = "number, character and _ only";
+      $flag = 0;
     }
   }
     
@@ -67,7 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if (!mysqli_query($con, $query)) {
 			die('Error: ' . mysqli_error($con));
     }
-    
     echo "Register successfully. <br />";
 		echo 'Click <a href="index.php">here</a> back to home page.<br />';
     mysqli_close($con);
