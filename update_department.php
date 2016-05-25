@@ -44,14 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$name0Err = "number, character and _ only";
 			$flag = 0;
 		}	
-		if (($flag == 1) && (($name0) || ($manager))) { 
-			if (! $name0) {
-				$query = "UPDATE DEPARTMENT SET EMPLOYEE_id = '$manager' WHERE id = '$id'";
-			} else if (! $manager) {
+		if ($flag == 1) {
+			if ($name0) {
 				$query = "UPDATE DEPARTMENT SET name = '$name0' WHERE id = '$id'";
+				update($con, $query);
 			}
-			if (!mysqli_query($con, $query)) {
-				die('Error: ' . mysqli_error($con));
+			if ($manager) {
+				$query = "UPDATE DEPARTMENT SET EMPLOYEE_id = '$manager' WHERE id = '$id'";
+				update($con, $query);
 			}
 			echo "Update successfully. <br />";
 			echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
@@ -87,10 +87,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 	
 function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+function update($con, $query) {
+	if (!mysqli_query($con, $query)) {
+		die('Error: ' . mysqli_error($con));
+	}
 }
 ?>
 
