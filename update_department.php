@@ -16,10 +16,10 @@ if (! $con) {
 }
 $result = mysqli_query($con, "SELECT * FROM DEPARTMENT");
 
-echo "<table width=500 height=70 border=1 cellspacing=1>";
-echo "<th width=100 scope=col>department id</th> ";
-echo "<th width=100 scope=col>department name</th> ";
-echo "<th width=100 scope=col>manager id</th>";
+echo "<table width=480 height=70 border=1 cellspacing=1>";
+echo "<th width=10 scope=col>department id</th> ";
+echo "<th width=15 scope=col>department name</th> ";
+echo "<th width=9 scope=col>manager id</th>";
 echo "</tr>";
 while ($row = mysqli_fetch_array($result)) {
 	echo "<tr>";
@@ -36,52 +36,52 @@ $flag = 1;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$id = test_input($_POST["id"]);
   $manager = test_input($_POST["manager"]);
-}
-
-if ($id) {
-	$name0 = test_input($_POST["name0"]);
-	if (!preg_match("/^[a-zA-Z1-9_]*$/",$name0)) {
-		$name0Err = "number, character and _ only";
-		$flag = 0;
-	}	
-	if (($flag == 1) && (($name0) || ($manager))) { 
-		if (! $name0) {
-			$query = "UPDATE DEPARTMENT SET EMPLOYEE_id = '$manager' WHERE id = '$id'";
-		} else if (! $manager) {
-			$query = "UPDATE DEPARTMENT SET name = '$name0' WHERE id = '$id'";
-		}
-		if (!mysqli_query($con, $query)) {
-			die('Error: ' . mysqli_error($con));
-		}
-		echo "Update successfully. <br />";
-		echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
-		mysqli_close($con);
-		exit;
-	}
-} else {
-	if (empty($_POST["name1"])) {
-		$name1Err = "name is required";
-		$flag = 0;
-	} else {
-		$name1 = test_input($_POST["name1"]);
-		if (!preg_match("/^[a-zA-Z1-9_]*$/",$name1)) {
-			$name1Err = "number, character and _ only";
+	
+	if ($id) {
+		$name0 = test_input($_POST["name0"]);
+		if (!preg_match("/^[a-zA-Z1-9_]*$/",$name0)) {
+			$name0Err = "number, character and _ only";
 			$flag = 0;
 		}	
-	}	
-	if ($flag == 1) { 
-		if (! $manager) {
-			$query = "INSERT INTO DEPARTMENT(id, name) VALUES (NULL, '$name1')";
+		if (($flag == 1) && (($name0) || ($manager))) { 
+			if (! $name0) {
+				$query = "UPDATE DEPARTMENT SET EMPLOYEE_id = '$manager' WHERE id = '$id'";
+			} else if (! $manager) {
+				$query = "UPDATE DEPARTMENT SET name = '$name0' WHERE id = '$id'";
+			}
+			if (!mysqli_query($con, $query)) {
+				die('Error: ' . mysqli_error($con));
+			}
+			echo "Update successfully. <br />";
+			echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
+			mysqli_close($con);
+			exit;
+		}
+	} else {
+		if (empty($_POST["name1"])) {
+			$name1Err = "name is required";
+			$flag = 0;
 		} else {
-			$query = "INSERT INTO DEPARTMENT(id, name, EMPLOYEE_id) VALUES (NULL, '$name1', 'manager')";
+			$name1 = test_input($_POST["name1"]);
+			if (!preg_match("/^[a-zA-Z1-9_]*$/",$name1)) {
+				$name1Err = "number, character and _ only";
+				$flag = 0;
+			}	
+		}	
+		if ($flag == 1) { 
+			if (! $manager) {
+				$query = "INSERT INTO DEPARTMENT(id, name) VALUES (NULL, '$name1')";
+			} else {
+				$query = "INSERT INTO DEPARTMENT(id, name, EMPLOYEE_id) VALUES (NULL, '$name1', 'manager')";
+			}
+			if (!mysqli_query($con, $query)) {
+				die('Error: ' . mysqli_error($con));
+			}
+			echo "Insert successfully. <br />";
+			echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
+			mysqli_close($con);
+			exit;
 		}
-		if (!mysqli_query($con, $query)) {
-			die('Error: ' . mysqli_error($con));
-		}
-		echo "Insert successfully. <br />";
-		echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
-		mysqli_close($con);
-		exit;
 	}
 }
 	
@@ -93,7 +93,7 @@ function test_input($data) {
 }
 ?>
 
-<h3>Update a exist department</h3>
+<h3>Update a existing department</h3>
 <p><span class="error">* required</span></p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 	id: <input type="number" name="id">
