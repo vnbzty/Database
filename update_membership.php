@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Update department</title>
+<title>Update membership</title>
 <style>
 	h3 {color: #3399FF;}
     .error {color: #FF0000;}
@@ -36,7 +36,6 @@ while ($row = mysqli_fetch_array($result)) {
     echo "<td>".$row['MEMBERSHIP_id']."</td>";
     echo "</tr>";
 }
-
 // 定义变量并设置为空值
 $id = "";
 $flag = 1;
@@ -53,15 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if ($row['MEMBERSHIP_id']) {
 			echo 'This customer is alreay our member.';
 		} else {
-			if (!mysqli_query($con, "INSERT INTO MEMBERSHIP(id, total_cost) VALUES (NULL, '0')")) {
-				die('Error: ' . mysqli_error($con));
-			}
+			exe_query($con, "INSERT INTO MEMBERSHIP(id, total_cost) VALUES (NULL, '0')");
 			$result = mysqli_query($con, "SELECT * FROM MEMBERSHIP WHERE id = (SELECT max(id) FROM MEMBERSHIP)");
 			$row = mysqli_fetch_array($result);
 			$membershipid = $row['id'];
-			if (!mysqli_query($con, "UPDATE CONSUMER SET MEMBERSHIP_id = '$membershipid' WHERE id = '$id'")) {
-				die('Error: ' . mysqli_error($con));
-			}
+			exe_query($con, "UPDATE CONSUMER SET MEMBERSHIP_id = '$membershipid' WHERE id = '$id'");
 			echo "Update successfully. <br />";
       echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
     }
@@ -71,16 +66,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }
 
-function update($con, $query) {
-    if (!mysqli_query($con, $query)) {
-        die('Error: ' . mysqli_error($con));
-    }
+function exe_query($con, $query) {
+  if (!mysqli_query($con, $query)) {
+    die('Error: ' . mysqli_error($con));
+  }
 }
 ?>
 
@@ -92,7 +87,7 @@ function update($con, $query) {
 	<br><br>
 	<input type="submit" name="submit" value="submit">
 </form>
-<h3>Existing departments</h3>
+<h3>Existing customers</h3>
 
 </body>
 </html>

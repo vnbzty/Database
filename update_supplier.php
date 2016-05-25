@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Update department</title>
+<title>Update supplier</title>
 <style>
 	h3 {color: #3399FF;}
   .error {color: #FF0000;}
@@ -31,7 +31,6 @@ while ($row = mysqli_fetch_array($result)) {
     echo "<td>".$row['phone_number']."</td>";
     echo "</tr>";
 }
-
 // 定义变量并设置为空值
 $name0Err = $name1Err = $addErr = $phoneErr = "";
 $id = $name0 = $name1 = $address = $phone_number = "";
@@ -50,15 +49,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($flag == 1) {
       if ($name0) {
         $query = "UPDATE SUPPLIER SET name = '$name0' WHERE id = '$id'";
-				update($con, $query);
+				exe_query($con, $query);
 			}
 			if ($address) {
 				$query = "UPDATE SUPPLIER SET address = '$address' WHERE id = '$id'";
-				update($con, $query);
+				exe_query($con, $query);
 			}
 			if ($phone_number) {
 				$query = "UPDATE SUPPLIER SET phone_number = '$phone_number' WHERE id = '$id'";
-				update($con, $query);
+				exe_query($con, $query);
 			} 
       echo "Update successfully. <br />";
       echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
@@ -89,9 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $phone_number = test_input($_POST["phone_number"]);
 		}
     if ($flag == 1) {
-      if (!mysqli_query($con, "INSERT INTO SUPPLIER(id, name, address, phone_number) VALUES (NULL, '$name1', '$address', '$phone_number')")) {
-        die('Error: ' . mysqli_error($con));
-      }
+      exe_query($con, "INSERT INTO SUPPLIER(id, name, address, phone_number) VALUES (NULL, '$name1', '$address', '$phone_number')");
       echo "Insert successfully. <br />";
       echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
       mysqli_close($con);
@@ -107,7 +104,7 @@ function test_input($data) {
     return $data;
 }
 
-function update($con, $query) {
+function exe_query($con, $query) {
 	if (!mysqli_query($con, $query)) {
 		die('Error: ' . mysqli_error($con));
 	}

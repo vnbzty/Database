@@ -29,7 +29,6 @@ while ($row = mysqli_fetch_array($result)) {
 	echo "<td>".$row['EMPLOYEE_id']."</td>";
 	echo "</tr>";
 }
-
 // 定义变量并设置为空值
 $name0Err = $name1Err=  "";
 $id = $name0 = $name1 = $manager = "";
@@ -47,11 +46,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if ($flag == 1) {
 			if ($name0) {
 				$query = "UPDATE DEPARTMENT SET name = '$name0' WHERE id = '$id'";
-				update($con, $query);
+				exe_query($con, $query);
 			}
 			if ($manager) {
 				$query = "UPDATE DEPARTMENT SET EMPLOYEE_id = '$manager' WHERE id = '$id'";
-				update($con, $query);
+				exe_query($con, $query);
 			}
 			echo "Update successfully. <br />";
 			echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
@@ -75,9 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			} else {
 				$query = "INSERT INTO DEPARTMENT(id, name, EMPLOYEE_id) VALUES (NULL, '$name1', 'manager')";
 			}
-			if (!mysqli_query($con, $query)) {
-				die('Error: ' . mysqli_error($con));
-			}
+			exe_query($con, $query);
 			echo "Insert successfully. <br />";
 			echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
 			mysqli_close($con);
@@ -93,7 +90,7 @@ function test_input($data) {
   return $data;
 }
 
-function update($con, $query) {
+function exe_query($con, $query) {
 	if (!mysqli_query($con, $query)) {
 		die('Error: ' . mysqli_error($con));
 	}

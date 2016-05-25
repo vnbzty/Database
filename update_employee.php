@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Update department</title>
+<title>Update employee</title>
 <style>
 	h3 {color: #3399FF;}
 	.error {color: #FF0000;}
@@ -39,7 +39,6 @@ while ($row = mysqli_fetch_array($result)) {
     echo "<td>".$row['DEPARTMENT_id']."</td>";
     echo "</tr>";
 }
-
 // 定义变量并设置为空值
 $idErr = $nameErr = "";
 $id = $name = $password = $gender = $level = $idcard = $departmentid = "";
@@ -65,27 +64,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if ($flag == 1) {
 		if ($name) {
 			$query = "UPDATE EMPLOYEE SET name = '$name' WHERE id = '$id'";
-			update($con, $query);
+			exe_query($con, $query);
 		}
 		if ($password) {
 			$query = "UPDATE EMPLOYEE SET password = '$password' WHERE id = '$id'";
-			update($con, $query);
+			exe_query($con, $query);
 		}
 		if ($gender) {
 			$query = "UPDATE EMPLOYEE SET gender = '$gender' WHERE id = '$id'";
-			update($con, $query);
+			exe_query($con, $query);
 		}
 		if ($level) {
 			$query = "UPDATE EMPLOYEE SET level = '$level' WHERE id = '$id'";
-			update($con, $query);
+			exe_query($con, $query);
 		}
 		if ($idcard) {
 			$query = "UPDATE EMPLOYEE SET id_card = '$idcard' WHERE id = '$id'";
-			update($con, $query);
+			exe_query($con, $query);
 		}
 		if ($departmentid) {
 			$query = "UPDATE EMPLOYEE SET DEPARTMENT_id = '$departmentid' WHERE id = '$id'";
-			update($con, $query);
+			exe_query($con, $query);
 		}
 		echo "Update successfully. <br />";
 		echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
@@ -101,7 +100,7 @@ function test_input($data) {
     return $data;
 }
 
-function update($con, $query) {
+function exe_query($con, $query) {
 	if (!mysqli_query($con, $query)) {
 		die('Error: ' . mysqli_error($con));
 	}
@@ -131,7 +130,7 @@ function update($con, $query) {
 	<br><br>
 	<input type="submit" name="submit" value="submit">
 </form>
-<h3>Existing departments</h3>
+<h3>Existing employees</h3>
 
 </body>
 </html>
