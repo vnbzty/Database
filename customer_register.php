@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$gender = test_input($_POST["gender"]);
 
 	if ($flag == 1){
-		$con = mysql_connect("127.0.0.1", "root", "vnbzty");
+		$con = mysql_connect("127.0.0.1", "root", "");
 		if(! $con)
 		{
 			die('Could not connect: ' . mysql_error());

@@ -94,7 +94,7 @@ function test_input($data) {
 }
 ?>
 
-<h3>Update a existing department</h3>
+<h3>Update an existing department</h3>
 <p><span class="error">* required</span></p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 	id: <input type="number" name="id">

@@ -108,10 +108,10 @@ function update($con, $query) {
 }
 ?>
 
-<h3>Update a existing employee</h3>
+<h3>Update an existing employee</h3>
 <p><span class="error">* required</span></p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-	id: <input type="text" name="id">
+	id: <input type="number" name="id">
 	<span class="error">* <?php echo $idErr;?></span>
 	<br><br>
 	name: <input type="text" name="name">
