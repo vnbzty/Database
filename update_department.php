@@ -17,10 +17,10 @@ if (! $con) {
 }
 $result = mysqli_query($con, "SELECT * FROM DEPARTMENT");
 
-echo "<table width=480 height=70 border=1 cellspacing=1>";
-echo "<th width=10 scope=col>department id</th> ";
-echo "<th width=15 scope=col>department name</th> ";
-echo "<th width=9 scope=col>manager id</th>";
+echo "<table width=430 height=35 border=1 cellspacing=1>";
+echo "<th width=100 scope=col>department id</th> ";
+echo "<th width=120 scope=col>department name</th> ";
+echo "<th width=90 scope=col>manager id</th>";
 echo "</tr>";
 while ($row = mysqli_fetch_array($result)) {
 	echo "<tr>";
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if (! $manager) {
 				$query = "INSERT INTO DEPARTMENT(id, name) VALUES (NULL, '$name1')";
 			} else {
-				$query = "INSERT INTO DEPARTMENT(id, name, EMPLOYEE_id) VALUES (NULL, '$name1', 'manager')";
+				$query = "INSERT INTO DEPARTMENT(id, name, EMPLOYEE_id) VALUES (NULL, '$name1', '$manager')";
 			}
 			exe_query($con, $query);
 			echo "Insert successfully. <br />";

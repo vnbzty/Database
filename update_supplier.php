@@ -17,10 +17,10 @@ if (! $con) {
 }
 $result = mysqli_query($con, "SELECT * FROM SUPPLIER");
 
-echo "<table width=450 height=70 border=1 cellspacing=1>";
+echo "<table width=450 height=35 border=1 cellspacing=1>";
 echo "<th width=150 scope=col>supplier id</th> ";
 echo "<th width=200 scope=col>supplier name</th> ";
-echo "<th width=90 scope=col>address</th> ";
+echo "<th width=100 scope=col>address</th> ";
 echo "<th width=200 scope=col>phone number</th>";
 echo "</tr>";
 while ($row = mysqli_fetch_array($result)) {

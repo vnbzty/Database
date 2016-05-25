@@ -17,13 +17,13 @@ if (! $con) {
 }
 $result = mysqli_query($con, "SELECT * FROM EMPLOYEE");
 
-echo "<table width=800 height=70 border=1 cellspacing=1>";
-echo "<th width=20 scope=col>employee id</th> ";
-echo "<th width=27 scope=col>employee name</th> ";
-echo "<th width=10 scope=col>gender</th>";
-echo "<th width=10 scope=col>level</th>";
-echo "<th width=100 scope=col>ID card number</th>";
-echo "<th width=27 scope=col>department id</th>";
+echo "<table width=800 height=50 border=1 cellspacing=1>";
+echo "<th width=200 scope=col>employee id</th> ";
+echo "<th width=270 scope=col>employee name</th> ";
+echo "<th width=100 scope=col>gender</th>";
+echo "<th width=100 scope=col>level</th>";
+echo "<th width=200 scope=col>ID card number</th>";
+echo "<th width=270 scope=col>department id</th>";
 echo "</tr>";
 while ($row = mysqli_fetch_array($result)) {
     echo "<tr>";

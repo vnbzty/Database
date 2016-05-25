@@ -18,11 +18,11 @@ if (! $con) {
 $result = mysqli_query($con, "SELECT * FROM CONSUMER");
 // WHERE id not in (SELECT id FROM MEMBERSHIP)");
 
-echo "<table width=550 height=70 border=1 cellspacing=1>";
-echo "<th width=80 scope=col>customer id</th> ";
-echo "<th width=100 scope=col>customer name</th> ";
-echo "<th width=30 scope=col>gender</th>";
-echo "<th width=100 scope=col>membership id</th>";
+echo "<table width=500 height=35 border=1 cellspacing=1>";
+echo "<th width=170 scope=col>customer id</th> ";
+echo "<th width=200 scope=col>customer name</th> ";
+echo "<th width=100 scope=col>gender</th>";
+echo "<th width=200 scope=col>membership id</th>";
 echo "</tr>";
 while ($row = mysqli_fetch_array($result)) {
     echo "<tr>";

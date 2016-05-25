@@ -17,7 +17,7 @@ if (! $con) {
 }
 $result = mysqli_query($con, "SELECT * FROM CATAGORY");
 
-echo "<table width=300 height=70 border=1 cellspacing=1>";
+echo "<table width=300 height=35 border=1 cellspacing=1>";
 echo "<th width=100 scope=col>catagory id</th> ";
 echo "<th width=100 scope=col>catagory name</th> ";
 echo "</tr>";
