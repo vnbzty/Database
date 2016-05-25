@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			echo '<br />';
 			echo 'Your level: ', $row['level'], '<br />';
 			echo 'Your ID card number: ', $row['id_card'], '<br />';
-			echo 'Your department id: ', $row['DEPARTMENT_id'], '<br />';
+			echo 'Your department id: ', $row['DEPARTMENT_id'], '<br /><br />';
 			echo 'Go <a href="employee_index.php">Employee Centre</a><br />';
       echo 'Click <a href="employee_login.php?action=logout">here</a> to cancel login!<br />';
       exit;

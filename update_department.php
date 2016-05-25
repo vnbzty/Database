@@ -3,6 +3,7 @@
 <head>
 <title>Update department</title>
 <style>
+	h3 {color: #3399FF;}
 	.error {color: #FF0000;}
 </style>
 </head>
