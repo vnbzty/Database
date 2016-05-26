@@ -1,5 +1,11 @@
 <?php
 session_start();
+if($_GET['action'] == "logout"){
+    unset($_SESSION['username']);
+	echo "<script language=\"javascript\">";
+	echo "document.location=\"customer_login.php\"";
+	echo "</script>";
+}
 ?>
 <!DOCTYPE html>
 <html>

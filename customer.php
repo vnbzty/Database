@@ -23,10 +23,17 @@ session_start();
 		$query = "SELECT * FROM CONSUMER WHERE name = '$name'";
 		$result = mysqli_query($con, $query);
         $row = mysqli_fetch_array($result);
+
+        $goods = mysqli_query($con,"SELECT * FROM CATAGORY ");
+        $goodsnum = mysqli_num_rows($goods);
+        for($i = 0;$i < $goodsnum;$i++){
+            
+        }
         echo 'Info:<br />';
         echo 'Username:',$name,'<br />';
         echo 'Password:',$row['password'],'<br/>';
-        echo '<a href="login.php?action=logout">zhuxiao</a>denglu<br/>';
+        echo '<a href="customer_login.php?action=logout">Logout</a><br/>';
+
     }
 
 ?>
