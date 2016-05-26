@@ -20,6 +20,7 @@ session_start();
     else{
 		$con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
 		$name = $_SESSION["username"];
+        echo $name;
 		$query = "SELECT * FROM CONSUMER WHERE name = '$name'";
 		$result = mysqli_query($con, $query);
         $row = mysqli_fetch_array($result);
@@ -27,7 +28,7 @@ session_start();
         $goods = mysqli_query($con,"SELECT * FROM CATAGORY ");
         $goodsnum = mysqli_num_rows($goods);
         for($i = 0;$i < $goodsnum;$i++){
-            
+
         }
         echo 'Info:<br />';
         echo 'Username:',$name,'<br />';

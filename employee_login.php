@@ -1,7 +1,17 @@
+<?php
+session_start();
+if($_GET['action'] == "logout"){
+    unset($_SESSION['username']);
+	unset($_SESSION['userid']);
+	echo "<script language=\"javascript\">";
+	echo "document.location=\"employee_login.php\"";
+	echo "</script>";
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Log in</title>
+<title>Employee Log In</title>
 <style>
 .error {color: #FF0000;}
 </style>
@@ -10,21 +20,51 @@
 <body>
 <?php
 // 定义变量并设置为空值
-$nameErr = $passwordErr = $genderErr = $levelErr = $idcardErr = $departmentidErr = "";
-$name = $password = $gender = $level = $idcard = $departmentid = "";
-
+$nameErr = $passwordErr = "";
+$name = $password = "";
+$flag = 1;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["name"])) {
 		$nameErr = "name is required";
+		$flag = 0;
   } else {
     $name = test_input($_POST["name"]);
   }
-    
+
   if (empty($_POST["password"])) {
     $passwordErr = "password is required";
+		$flag = 0;
   } else {
     $password = test_input($_POST["password"]);
-  }  
+  }
+  if ($flag == 1){
+    $con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+    $name = $_POST['name'];
+    $passowrd = $_POST['password'];
+    $result = mysqli_query($con, "SELECT * FROM EMPLOYEE WHERE name = '$name' AND password = '$password'");
+    if($row = mysqli_fetch_array($result)){
+      $_SESSION['username'] = $name;
+      $_SESSION['userid'] = $row['id'];
+      echo 'Hi, ',$name,'.<br />', 'Welcome!<br />';
+			echo 'Your employee id: ', $row['id'], '<br />';
+			echo 'Your gender: ';
+			if ($row['gender'] == 'w') {
+				echo 'female';
+			} else {
+				echo 'male';
+			}
+			echo '<br />';
+			echo 'Your level: ', $row['level'], '<br />';
+			echo 'Your ID card number: ', $row['id_card'], '<br />';
+			echo 'Your department id: ', $row['DEPARTMENT_id'], '<br /><br />';
+			echo 'Go <a href="employee_index.php">Employee Centre</a><br />';
+      echo 'Click <a href="employee_login.php?action=logout">here</a> to logout!<br />';
+      exit;
+    } else {
+			exit('Failed!Click <a href="javascript:history.back(-1);">Back</a> Retry	');
+    }
+  }
+
 }
 
 function test_input($data) {
@@ -46,26 +86,5 @@ function test_input($data) {
 	<input type="submit" name="submit" value="submit">
 </form>
 
-<?php
-$con = mysql_connect("127.0.0.1", "root", "");
-if(! $con)
-{
-    die('Could not connect: ' . mysql_error());
-}
-mysql_select_db("mydb", $con);
-$result = mysql_query("SELECT * FROM EMPLOYEE WHERE name = '$name'");
-if (! $result) {
-	die('Error: ' . mysql_error());
-}
-
-$row = mysql_fetch_array($result);
-if (! ($row['password'] == $password)) {
-	echo "Wrong password.";
-} else {
-	echo "Log in successfully.";
-}
-mysql_close($con);
-?>
-    
 </body>
 </html>
