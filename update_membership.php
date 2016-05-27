@@ -11,30 +11,35 @@
 <body>
 <?php
 // list all memberships.
-$con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+$con = mysqli_connect("127.0.0.1", "root", "", "mydb");
 if (! $con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-$result = mysqli_query($con, "SELECT * FROM CONSUMER");
-// WHERE id not in (SELECT id FROM MEMBERSHIP)");
-
-echo "<table width=500 height=35 border=1 cellspacing=1>";
-echo "<th width=170 scope=col>customer id</th> ";
-echo "<th width=200 scope=col>customer name</th> ";
-echo "<th width=100 scope=col>gender</th>";
-echo "<th width=200 scope=col>membership id</th>";
-echo "</tr>";
-while ($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-    echo "<td>".$row['id']."</td>";
-    echo "<td>".$row['name']."</td>";
-    if ($row['gender'] == 'w') {
-        echo "<td>".'female'."</td>";
-    } else {
-        echo "<td>".'male'."</td>";
-    }
-    echo "<td>".$row['MEMBERSHIP_id']."</td>";
-    echo "</tr>";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+?>
+<h3>Existing customers</h3>
+<?php
+	$result = mysqli_query($con, "SELECT * FROM CONSUMER");
+	// WHERE id not in (SELECT id FROM MEMBERSHIP)");
+	echo "<table width=500 height=35 border=1 cellspacing=1>";
+	echo "<th width=170 scope=col>customer id</th> ";
+	echo "<th width=200 scope=col>customer name</th> ";
+	echo "<th width=100 scope=col>gender</th>";
+	echo "<th width=200 scope=col>membership id</th>";
+	echo "</tr>";
+	while ($row = mysqli_fetch_array($result)) {
+	    echo "<tr>";
+	    echo "<td>".$row['id']."</td>";
+	    echo "<td>".$row['name']."</td>";
+	    if ($row['gender'] == 'w') {
+	        echo "<td>".'female'."</td>";
+	    } else {
+	        echo "<td>".'male'."</td>";
+	    }
+	    echo "<td>".$row['MEMBERSHIP_id']."</td>";
+	    echo "</tr>";
+	}
+	echo "</table>";
 }
 // 定义变量并设置为空值
 $id = "";
@@ -87,7 +92,6 @@ function exe_query($con, $query) {
 	<br><br>
 	<input type="submit" name="submit" value="submit">
 </form>
-<h3>Existing customers</h3>
 
 </body>
 </html>

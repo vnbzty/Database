@@ -45,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if($row = mysqli_fetch_array($result)){
       $_SESSION['employee_username'] = $name;
       $_SESSION['employee_userid'] = $row['id'];
-      echo 'Hi, ',$name,'.<br />', 'Welcome!<br />';
+      $_SESSION['employee_level'] = $row['level'];
+			echo 'Hi, ',$name,'.<br />', 'Welcome!<br />';
 			echo 'Your employee id: ', $row['id'], '<br />';
 			echo 'Your gender: ';
 			if ($row['gender'] == 'w') {
