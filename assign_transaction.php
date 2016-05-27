@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Update department</title>
+<title>Assign transaction</title>
 <style>
 	h3 {color: #3399FF;}
   .error {color: #FF0000;}
