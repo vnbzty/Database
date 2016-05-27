@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Update department</title>
+<title>Update inventory</title>
 <style>
 	h3 {color: #3399FF;}
   .error {color: #FF0000;}
@@ -46,8 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if ($id) { // update
     $name0 = test_input($_POST["name0"]);
-    if (!preg_match("/^[a-zA-Z1-9_]*$/",$name0)) {
-      $name0Err = "number, character and _ only";
+    if (!preg_match("/^[a-zA-Z1-9_]*$/", $name0)) {
+      $name0Err = "Only numbers, leters and _ allowed";
       $flag = 0;
     }
     if ($flag == 1) {
