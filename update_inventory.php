@@ -55,6 +55,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $name0Err = "Only numbers, leters and _ allowed";
       $flag = 0;
     }
+		$prize = test_input($_POST["prize"]);
+		$amount = test_input($_POST["amount"]);
+		$employee = test_input($_POST["employee"]);
+		$catagory = test_input($_POST["catagory"]);
+		$supplier = test_input($_POST["supplier"]);
     if ($flag == 1) {
       if ($name0) {
         $query = "UPDATE GOODS SET name = '$name0' WHERE id = '$id'";
@@ -69,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				$result = mysqli_query($con, "SELECT * FROM GOODS WHERE id = '$id'");
 				$row = mysqli_fetch_array($result);
 				$amount = $amount + $row['amount'];
-        $query = "UPDATE GOODS SET amount = '$amount' WHERE id = '$id'";
+				$query = "UPDATE GOODS SET amount = '$amount' WHERE id = '$id'";
         exe_query($con, $query);
       }
       if ($employee) {

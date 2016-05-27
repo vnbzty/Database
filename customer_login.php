@@ -11,7 +11,7 @@ if($_GET['action'] == "logout"){
 <!DOCTYPE html>
 <html>
 <head>
-<title>Log in</title>
+<title>Customer Log in</title>
 <style>
 .error {color: #FF0000;}
 </style>

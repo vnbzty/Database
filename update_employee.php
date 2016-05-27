@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,12 +69,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $level = test_input($_POST["level"]);
   $idcard = test_input($_POST["idcard"]);
   $departmentid = test_input($_POST["departmentid"]);
-	$auth_name = $_SESSION["employee_username"];
 	$auth_id = $_SESSION["employee_userid"];
 	$auth_level = $_SESSION["employee_level"];
 	if ($flag == 1) {
-		if ($id != $auth_id) {
-			echo 'You can\'t change other\'s profile!';
+		if (($id != $auth_id) && ($name || $password || $gender || $idcard)) {
+			echo 'You can\'t change other\'s profile!<br />';
 			echo 'Go <a href="employee_index.php">Employee Centre</a><br />';
 			exit;
 		} else { 
@@ -92,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				exe_query($con, $query);
 			}
 		}
-		if ($auto_level <= $level) {
-			echo 'You can\'t change low level employee\'s level and department!';
+		if (($auth_level <= $level) && ($level || $departmentid)) {
+			echo 'You can\'t change low level employee\'s level and department!<br />';
 			echo 'Go <a href="employee_index.php">Employee Centre</a><br />';
 			exit;	
 		} else {	
