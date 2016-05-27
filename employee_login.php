@@ -43,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $passowrd = $_POST['password'];
     $result = mysqli_query($con, "SELECT * FROM EMPLOYEE WHERE name = '$name' AND password = '$password'");
     if($row = mysqli_fetch_array($result)){
-      $_SESSION['username'] = $name;
-      $_SESSION['userid'] = $row['id'];
+      $_SESSION['employee_username'] = $name;
+      $_SESSION['employee_userid'] = $row['id'];
       echo 'Hi, ',$name,'.<br />', 'Welcome!<br />';
 			echo 'Your employee id: ', $row['id'], '<br />';
 			echo 'Your gender: ';

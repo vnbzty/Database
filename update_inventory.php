@@ -60,6 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exe_query($con, $query);
       }
       if ($amount) {
+				$query = "SELECT * FROM GOODS WHERE id = '$id'";
+				$result = mysqli_query($con, "SELECT * FROM GOODS WHERE id = '$id'");
+				$row = mysqli_fetch_array($result);
+				$amount = $amount + $row['amount'];
         $query = "UPDATE GOODS SET amount = '$amount' WHERE id = '$id'";
         exe_query($con, $query);
       }
