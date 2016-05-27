@@ -38,14 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = test_input($_POST["password"]);
   }
   if ($flag == 1){
-    $con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+    $con = mysqli_connect("127.0.0.1", "root", "", "mydb");
     $name = $_POST['name'];
     $passowrd = $_POST['password'];
     $result = mysqli_query($con, "SELECT * FROM EMPLOYEE WHERE name = '$name' AND password = '$password'");
     if($row = mysqli_fetch_array($result)){
-      $_SESSION['username'] = $name;
-      $_SESSION['userid'] = $row['id'];
-      echo 'Hi, ',$name,'.<br />', 'Welcome!<br />';
+      $_SESSION['employee_username'] = $name;
+      $_SESSION['employee_userid'] = $row['id'];
+      $_SESSION['employee_level'] = $row['level'];
+			echo 'Hi, ',$name,'.<br />', 'Welcome!<br />';
 			echo 'Your employee id: ', $row['id'], '<br />';
 			echo 'Your gender: ';
 			if ($row['gender'] == 'w') {

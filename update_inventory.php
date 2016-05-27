@@ -11,31 +11,36 @@
 <body>
 <?php
 // list all goods.
-$con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+$con = mysqli_connect("127.0.0.1", "root", "", "mydb");
 if (! $con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-$result = mysqli_query($con, "SELECT * FROM GOODS");
-
-echo "<table width=700 height=35 border=1 cellspacing=1>";
-echo "<th width=100 scope=col>item id</th> ";
-echo "<th width=150 scope=col>item name</th> ";
-echo "<th width=100 scope=col>prize</th>";
-echo "<th width=100 scope=col>amount</th>";
-echo "<th width=150 scope=col>employee id</th>";
-echo "<th width=150 scope=col>catagory id</th>";
-echo "<th width=150 scope=col>supplier id</th>";
-echo "</tr>";
-while ($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-    echo "<td>".$row['id']."</td>";
-    echo "<td>".$row['name']."</td>";
-    echo "<td>".$row['prize']."</td>";
-    echo "<td>".$row['amount']."</td>";
-    echo "<td>".$row['EMPLOYEE_id']."</td>";
-    echo "<td>".$row['CATAGORY_id']."</td>";
-    echo "<td>".$row['SUPPLIER_id']."</td>";
-    echo "</tr>";
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+?>
+<h3>Existing items</h3>
+<?php
+	$result = mysqli_query($con, "SELECT * FROM GOODS");
+	echo "<table width=700 height=35 border=1 cellspacing=1>";
+	echo "<th width=100 scope=col>item id</th> ";
+	echo "<th width=150 scope=col>item name</th> ";
+	echo "<th width=100 scope=col>prize</th>";
+	echo "<th width=100 scope=col>amount</th>";
+	echo "<th width=150 scope=col>employee id</th>";
+	echo "<th width=150 scope=col>catagory id</th>";
+	echo "<th width=150 scope=col>supplier id</th>";
+	echo "</tr>";
+	while ($row = mysqli_fetch_array($result)) {
+	    echo "<tr>";
+	    echo "<td>".$row['id']."</td>";
+	    echo "<td>".$row['name']."</td>";
+	    echo "<td>".$row['prize']."</td>";
+	    echo "<td>".$row['amount']."</td>";
+	    echo "<td>".$row['EMPLOYEE_id']."</td>";
+	    echo "<td>".$row['CATAGORY_id']."</td>";
+	    echo "<td>".$row['SUPPLIER_id']."</td>";
+	    echo "</tr>";
+	}
+	echo "</table>";
 }
 // 定义变量并设置为空值
 $name0Err = $name1Err= $prizeErr = $amountErr = $employeeErr = $cataErr = $supErr = "";
@@ -60,6 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exe_query($con, $query);
       }
       if ($amount) {
+				$query = "SELECT * FROM GOODS WHERE id = '$id'";
+				$result = mysqli_query($con, "SELECT * FROM GOODS WHERE id = '$id'");
+				$row = mysqli_fetch_array($result);
+				$amount = $amount + $row['amount'];
         $query = "UPDATE GOODS SET amount = '$amount' WHERE id = '$id'";
         exe_query($con, $query);
       }
@@ -190,7 +199,6 @@ function exe_query($con, $query) {
 	<br><br>
 	<input type="submit" name="submit" value="submit">
 </form>
-<h3>Existing items</h3>
 
 </body>
 </html>

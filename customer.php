@@ -18,7 +18,7 @@ session_start();
         echo "<meta http-equiv=\"refresh\" content=\"0;url=customer_login.php\">";
     }
     else{
-		$con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+		$con = mysqli_connect("127.0.0.1", "root", "", "mydb");
 		$name = $_SESSION["username"];
         echo $name;
 		$query = "SELECT * FROM CONSUMER WHERE name = '$name'";

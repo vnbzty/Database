@@ -14,6 +14,7 @@
 	<input type="button" onclick="window.location.href='update_supplier.php'" value="Update supplier">
 	<input type="button" onclick="window.location.href='update_catagory.php'" value="Update catagory">
 	<input type="button" onclick="window.location.href='update_inventory.php'" value="Update inventory">
+	<input type="button" onclick="window.location.href='assign_transaction.php'" value="Assign Transaction">
 </form>
 
 </body>

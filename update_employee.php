@@ -11,33 +11,39 @@
 <body>
 <?php
 // list all employees.
-$con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+$con = mysqli_connect("127.0.0.1", "root", "", "mydb");
 if (! $con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-$result = mysqli_query($con, "SELECT * FROM EMPLOYEE");
-
-echo "<table width=800 height=50 border=1 cellspacing=1>";
-echo "<th width=200 scope=col>employee id</th> ";
-echo "<th width=270 scope=col>employee name</th> ";
-echo "<th width=100 scope=col>gender</th>";
-echo "<th width=100 scope=col>level</th>";
-echo "<th width=200 scope=col>ID card number</th>";
-echo "<th width=270 scope=col>department id</th>";
-echo "</tr>";
-while ($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-    echo "<td>".$row['id']."</td>";
-    echo "<td>".$row['name']."</td>";
-		if ($row['gender'] == 'w') {
-			echo "<td>".'female'."</td>";
-		} else {
-			echo "<td>".'male'."</td>";
-		}
-    echo "<td>".$row['level']."</td>";
-    echo "<td>".$row['id_card']."</td>";
-    echo "<td>".$row['DEPARTMENT_id']."</td>";
-    echo "</tr>";
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+?>
+<h3>Existing employees</h3>
+<?php
+	$result = mysqli_query($con, "SELECT * FROM EMPLOYEE");
+	
+	echo "<table width=800 height=50 border=1 cellspacing=1>";
+	echo "<th width=200 scope=col>employee id</th> ";
+	echo "<th width=270 scope=col>employee name</th> ";
+	echo "<th width=100 scope=col>gender</th>";
+	echo "<th width=100 scope=col>level</th>";
+	echo "<th width=200 scope=col>ID card number</th>";
+	echo "<th width=270 scope=col>department id</th>";
+	echo "</tr>";
+	while ($row = mysqli_fetch_array($result)) {
+	    echo "<tr>";
+	    echo "<td>".$row['id']."</td>";
+	    echo "<td>".$row['name']."</td>";
+			if ($row['gender'] == 'w') {
+				echo "<td>".'female'."</td>";
+			} else {
+				echo "<td>".'male'."</td>";
+			}
+	    echo "<td>".$row['level']."</td>";
+	    echo "<td>".$row['id_card']."</td>";
+	    echo "<td>".$row['DEPARTMENT_id']."</td>";
+	    echo "</tr>";
+	}
+	echo "</table>";
 }
 // 定义变量并设置为空值
 $idErr = $nameErr = "";
@@ -60,31 +66,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $level = test_input($_POST["level"]);
   $idcard = test_input($_POST["idcard"]);
   $departmentid = test_input($_POST["departmentid"]);
-
+	$auth_name = $_SESSION["employee_username"];
+	$auth_id = $_SESSION["employee_userid"];
+	$auth_level = $_SESSION["employee_level"];
 	if ($flag == 1) {
-		if ($name) {
-			$query = "UPDATE EMPLOYEE SET name = '$name' WHERE id = '$id'";
-			exe_query($con, $query);
+		if ($id != $auth_id) {
+			echo 'You can\'t change other\'s profile!';
+			echo 'Go <a href="employee_index.php">Employee Centre</a><br />';
+			exit;
+		} else { 
+			if ($name) {
+				$query = "UPDATE EMPLOYEE SET name = '$name' WHERE id = '$id'";
+				exe_query($con, $query);
+			}
+			if ($password) {
+				$query = "UPDATE EMPLOYEE SET password = '$password' WHERE id = '$id'";
+				exe_query($con, $query);
+			}
+			if ($gender) {
+				$query = "UPDATE EMPLOYEE SET gender = '$gender' WHERE id = '$id'";
+				exe_query($con, $query);
+			}
+			if ($idcard) {
+				$query = "UPDATE EMPLOYEE SET id_card = '$idcard' WHERE id = '$id'";
+				exe_query($con, $query);
+			}
 		}
-		if ($password) {
-			$query = "UPDATE EMPLOYEE SET password = '$password' WHERE id = '$id'";
-			exe_query($con, $query);
-		}
-		if ($gender) {
-			$query = "UPDATE EMPLOYEE SET gender = '$gender' WHERE id = '$id'";
-			exe_query($con, $query);
-		}
-		if ($level) {
-			$query = "UPDATE EMPLOYEE SET level = '$level' WHERE id = '$id'";
-			exe_query($con, $query);
-		}
-		if ($idcard) {
-			$query = "UPDATE EMPLOYEE SET id_card = '$idcard' WHERE id = '$id'";
-			exe_query($con, $query);
-		}
-		if ($departmentid) {
-			$query = "UPDATE EMPLOYEE SET DEPARTMENT_id = '$departmentid' WHERE id = '$id'";
-			exe_query($con, $query);
+		if ($auto_level <= $level) {
+			echo 'You can\'t change low level employee\'s level and department!';
+			echo 'Go <a href="employee_index.php">Employee Centre</a><br />';
+			exit;	
+		} else {	
+			if ($level) {
+				$query = "UPDATE EMPLOYEE SET level = '$level' WHERE id = '$id'";
+				exe_query($con, $query);
+			}
+			if ($departmentid) {
+				$query = "UPDATE EMPLOYEE SET DEPARTMENT_id = '$departmentid' WHERE id = '$id'";
+				exe_query($con, $query);
+			}
 		}
 		echo "Update successfully. <br />";
 		echo 'Back to <a href="employee_index.php">Employee Centre</a><br />';
@@ -130,7 +150,6 @@ function exe_query($con, $query) {
 	<br><br>
 	<input type="submit" name="submit" value="submit">
 </form>
-<h3>Existing employees</h3>
 
 </body>
 </html>

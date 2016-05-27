@@ -11,26 +11,31 @@
 <body>
 <?php
 // list all suppliers.
-$con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+$con = mysqli_connect("127.0.0.1", "root", "", "mydb");
 if (! $con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-$result = mysqli_query($con, "SELECT * FROM SUPPLIER");
-
-echo "<table width=450 height=35 border=1 cellspacing=1>";
-echo "<th width=150 scope=col>supplier id</th> ";
-echo "<th width=200 scope=col>supplier name</th> ";
-echo "<th width=100 scope=col>address</th> ";
-echo "<th width=200 scope=col>phone number</th>";
-echo "</tr>";
-while ($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-    echo "<td>".$row['id']."</td>";
-    echo "<td>".$row['name']."</td>";
-    echo "<td>".$row['address']."</td>";
-    echo "<td>".$row['phone_number']."</td>";
-    echo "</tr>";
-}
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+?>
+<h3>Existing suppliers</h3>
+<?php
+	$result = mysqli_query($con, "SELECT * FROM SUPPLIER");
+	echo "<table width=450 height=35 border=1 cellspacing=1>";
+	echo "<th width=150 scope=col>supplier id</th> ";
+	echo "<th width=200 scope=col>supplier name</th> ";
+	echo "<th width=100 scope=col>address</th> ";
+	echo "<th width=200 scope=col>phone number</th>";
+	echo "</tr>";
+	while ($row = mysqli_fetch_array($result)) {
+	    echo "<tr>";
+	    echo "<td>".$row['id']."</td>";
+	    echo "<td>".$row['name']."</td>";
+	    echo "<td>".$row['address']."</td>";
+	    echo "<td>".$row['phone_number']."</td>";
+	    echo "</tr>";
+	}
+	echo "</table>";
+};
 // 定义变量并设置为空值
 $name0Err = $name1Err = $addErr = $phoneErr = "";
 $id = $name0 = $name1 = $address = $phone_number = "";
@@ -140,7 +145,6 @@ function exe_query($con, $query) {
 	<br><br>
 	<input type="submit" name="submit" value="submit">
 </form>
-<h3>Existing suppliers</h3>
 
 </body>
 </html>
