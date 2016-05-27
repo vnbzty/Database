@@ -16,7 +16,7 @@ session_start();
 $customer_name = $_SESSION["username"];
 $customer_id = $_SESSION["userid"];
 // list all goods.
-$con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+$con = mysqli_connect("127.0.0.1", "root", "", "mydb");
 if (! $con) {
     die('Could not connect: ' . mysqli_error($con));
 }
