@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = test_input($_POST["password"]);
   }
   if ($flag == 1){
-    $con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+    $con = mysqli_connect("127.0.0.1", "root", "", "mydb");
     $name = $_POST['name'];
     $passowrd = $_POST['password'];
     $result = mysqli_query($con, "SELECT * FROM EMPLOYEE WHERE name = '$name' AND password = '$password'");

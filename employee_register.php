@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $departmentid = test_input($_POST["departmentid"]);
 
   if ($flag == 1){
-    $con = mysqli_connect("127.0.0.1", "root", "vnbzty", "mydb");
+    $con = mysqli_connect("127.0.0.1", "root", "", "mydb");
     if(! $con) {
 			die('Could not connect: ' . mysqli_error($con));
     }
