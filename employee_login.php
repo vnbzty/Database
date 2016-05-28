@@ -1,7 +1,7 @@
 <?php
 session_start();
 if($_GET['action'] == "logout"){
-    unset($_SESSION['username']);
+  unset($_SESSION['username']);
 	unset($_SESSION['userid']);
 	echo "<script language=\"javascript\">";
 	echo "document.location=\"employee_login.php\"";
@@ -43,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $passowrd = $_POST['password'];
     $result = mysqli_query($con, "SELECT * FROM EMPLOYEE WHERE name = '$name' AND password = '$password'");
     if($row = mysqli_fetch_array($result)){
-      $_SESSION['employee_username'] = $name;
       $_SESSION['employee_userid'] = $row['id'];
       $_SESSION['employee_level'] = $row['level'];
 			echo 'Hi, ',$name,'.<br />', 'Welcome!<br />';
