@@ -15,11 +15,11 @@ $con = mysqli_connect("127.0.0.1", "root", "", "mydb");
 if (! $con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
 ?>
 <h3>Existing customers</h3>
 <?php
-	$result = mysqli_query($con, "SELECT * FROM CONSUMER");
+	$result = mysqli_query($con, "SELECT * FROM CONSUMER WHERE MEMBERSHIP_id is null");
 	// WHERE id not in (SELECT id FROM MEMBERSHIP)");
 	echo "<table width=500 height=35 border=1 cellspacing=1>";
 	echo "<th width=170 scope=col>customer id</th> ";

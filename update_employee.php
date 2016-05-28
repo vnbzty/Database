@@ -94,7 +94,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				exe_query($con, $query);
 			}
 		}
-		if (($auth_level <= $level) && ($level || $departmentid)) {
+		$result = mysqli_query($con, "SELECT max(level) FROM EMPLOYEE");
+		$row = mysqli_fetch_array($result);
+		if (($auth_level < $row['level']) && ($auth_level <= $level) && ($level || $departmentid)) {
 			echo 'You can\'t change low level employee\'s level and department!<br />';
 			echo 'Go <a href="employee_index.php">Employee Centre</a><br />';
 			exit;	
