@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 
     if ($flag == 1) {
-		$transaction = "INSERT INTO TRANSACTION (number, date, total_prize, CONSUMER_id, EMPLOYEE_id) VALUES (NULL, NOW(), $total_prize, $customer_id, 2);";
+		$transaction = "INSERT INTO TRANSACTION (number, date, total_prize, CONSUMER_id, EMPLOYEE_id) VALUES (NULL, NOW(), $total_prize, $customer_id, NULL);";
 		exe_query($con,$transaction);
 		$result = mysqli_query($con, "SELECT * FROM GOODS");
 		while($row = mysqli_fetch_array($result)){

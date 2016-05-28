@@ -15,7 +15,6 @@ $con = mysqli_connect("127.0.0.1", "root", "", "mydb");
 if (! $con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <h3>Existing customers</h3>
 <?php
@@ -40,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	    echo "</tr>";
 	}
 	echo "</table>";
-}
 // 定义变量并设置为空值
 $id = "";
 $flag = 1;
