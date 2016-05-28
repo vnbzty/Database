@@ -15,7 +15,7 @@ $con = mysqli_connect("127.0.0.1", "root", "", "mydb");
 if (! $con) {
     die('Could not connect: ' . mysqli_error($con));
 }
-$result = mysqli_query($con, "SELECT * FROM TRANSACTION WHERE EMPLOYEE_id is not null");
+$result = mysqli_query($con, "SELECT * FROM TRANSACTION WHERE EMPLOYEE_id is null");
 
 echo "<table width=530 height=35 border=1 cellspacing=1>";
 echo "<th width=100 scope=col>transaction id</th> ";
@@ -34,7 +34,7 @@ while ($row = mysqli_fetch_array($result)) {
 // 定义变量并设置为空值
 $idErr = $employeeErr = "";
 $id = $EMPLOYEE_id = "";
-$flag = 0;
+$flag = 1;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (empty($_POST["id"])) {
 		$idErr = "id is required";
