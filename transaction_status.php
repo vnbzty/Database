@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
-<title>Update department</title>
+<title>Transaction Status</title>
 <style>
 	h3 {color: #3399FF;}
   .error {color: #FF0000;}
@@ -39,15 +39,19 @@ echo "<th width=100 scope=col>date</th>";
 echo "<th width=100 scope=col>prize</th>";
 echo "<th width=150 scope=col>customer id</th>";
 echo "<th width=150 scope=col>employee id</th>";
+echo "<th width=100 scope=col>details</th>";
 echo "</tr>";
 while ($row = mysqli_fetch_array($result)) {
+	echo "<form method=\"post\" action=\"transaction_detail.php\">";
     echo "<tr>";
-    echo "<td>".$row['number']."</td>";
+    echo "<td><input type=\"hidden\" name=\"number\" value=\"".$row['number']."\">".$row['number']."</td>";
     echo "<td>".$row['date']."</td>";
     echo "<td>".$row['total_prize']."</td>";
     echo "<td>".$row['CONSUMER_id']."</td>";
     echo "<td>".$row['EMPLOYEE_id']."</td>";
+	echo "<td><input type=\"submit\" name=\"submit".$row['number']."\"value=\"details\"></td>";
     echo "</tr>";
+	echo "</form>";
 }
 ?>
 </body>
